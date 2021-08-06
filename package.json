@@ -1,0 +1,23 @@
+{
+  "name": "criapi",
+  "version": "1.0.0",
+  "description": "REST API for cryptocurrency manipulations",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/gang-bang-team/criapi.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/gang-bang-team/criapi/issues"
+  },
+  "homepage": "https://gitlab.com/gang-bang-team/criapi#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
