@@ -23,5 +23,5 @@ app.get('/wallets/random', (req, res) => {
 });
 
 app.listen(port, () =>
-  console.log(`CriAPI listening on port ${port}!`),
+    console.log(`CriAPI listening on port ${port}!`),
 );
