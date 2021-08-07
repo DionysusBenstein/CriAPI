@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
     return res.send("WASSSUUUUUP NIIIGGEEEERR!!!");
 });
 
-app.get('/get-random-wallet', (req, res) => {
+app.get('/wallets/random', (req, res) => {
     return res.send(wallets[Math.floor(Math.random() * wallets.length)]);
 });
 
