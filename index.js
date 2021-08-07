@@ -1,7 +1,10 @@
 const express = require("express");
+var cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(cors())
 
 const wallets = [
     "bc1q6w0eufkfhya4xjpyqnvkwcdt9a2kca8am097um", // wallet_1
