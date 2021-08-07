@@ -22,6 +22,10 @@ app.get('/wallets/random', (req, res) => {
     return res.send(wallets[Math.floor(Math.random() * wallets.length)]);
 });
 
+app.get('/wallets', (req, res) => {
+    return res.send(wallets);
+});
+
 app.listen(port, () =>
     console.log(`CriAPI listening on port ${port}!`),
 );
