@@ -1,32 +1,59 @@
 const express = require("express");
-var cors = require('cors');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const fs = require('fs');
+
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors())
+app.use(bodyParser.json());
 
-const wallets = [
-    "bc1q6w0eufkfhya4xjpyqnvkwcdt9a2kca8am097um", // wallet_1
-    "bc1qsvxgmuk5mlrw7u9fkz3cx7ktm68vfg5vc23zll", // wallet_2
-    "bc1qswzslgwke7xaz4vq9ph9q7yrvfj5pwyyt74rf8", // wallet_3
-    "bc1q2wzdljaxn7exrylhpx6kn30pftlrkgx6pxuqqj", // wallet_4
-    "bc1qunsa0cz59q5t6wtna3lhhkekt2zhmz0pjpl8fr", // wallet_5
-    "bc1qvds3da29lhakrupsw8uuunn5p0advvtz2wucpy", // wallet_6
-    "bc1qz7mgqcsa5hsj3k66dkkayl7kmshndtecf50myn", // wallet_7
-    "bc1qyud9v3pwskef3mhpf9w8hc4ktfph4072hshjms"  // wallet_8
-]
+let wallets;
+
+fs.readFile('wallets.json', 'utf8', function (err, data) {
+    if (err) {
+      return console.log(err);
+    }
+
+    wallets = JSON.parse(data);
+});
 
 app.get('/', (req, res) => {
     return res.send("WASSSUUUUUP NIIIGGEEEERR!!!");
 });
 
 app.get('/wallets/random', (req, res) => {
-    return res.send(wallets[Math.floor(Math.random() * wallets.length)]);
+    return res.send(wallets[Math.floor(Math.random() * wallets.length)].address);
 });
 
 app.get('/wallets', (req, res) => {
-    return res.send(wallets);
+    let walletsArr = [];
+
+    for (let i = 0; i < wallets.length; i++) {
+        walletsArr.push(wallets[i].address);
+    }
+
+    return res.send(walletsArr);
+});
+
+app.post('/wallets/add', (req, res) => {
+    wallets.push(req.body);
+    console.log(wallets)
+
+    fs.writeFile('wallets.json', JSON.stringify(wallets), function (err) {
+        if (err) return console.log(err);
+        console.log('wallets > wallets.json');
+    });
+
+    return res.send("New wallet was added!");
+});
+
+app.delete('/wallets/delete', (req, res) => {
+    
+
+    return res.send("The wallet was deleted!");
 });
 
 app.listen(port, () =>
