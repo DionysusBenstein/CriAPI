@@ -51,8 +51,7 @@ app.post('/wallets/add', (req, res) => {
 });
 
 app.delete('/wallets/delete', (req, res) => {
-    
-
+    // TODO: Delete wallet from array by address and overwrite the JSON file
     return res.send("The wallet was deleted!");
 });
 
