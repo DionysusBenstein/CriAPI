@@ -5,11 +5,11 @@ const fs = require('fs');
 
 
 const app = express();
-const port = process.env.PORT || 3000;
 
 app.use(cors())
 app.use(bodyParser.json());
 
+const port = process.env.PORT || 3000;
 let wallets;
 
 fs.readFile('wallets.json', 'utf8', function (err, data) {
