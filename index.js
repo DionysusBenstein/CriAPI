@@ -3,7 +3,6 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 
-
 const app = express();
 
 app.use(cors())
@@ -14,7 +13,7 @@ let wallets;
 
 fs.readFile('wallets.json', 'utf8', function (err, data) {
     if (err) {
-      return console.log(err);
+        return console.log(err);
     }
 
     wallets = JSON.parse(data);
@@ -58,16 +57,14 @@ app.delete('/wallets/delete/:address', (req, res) => {
     return res.send("The wallet was deleted!");
 });
 
+app.get('/wallets/download/:address', (req, res) => {
+    const file = `wallets_resources/${req.params.address}`;
+    return res.download(file);
+});
+
 app.post('/wallets/upload', (req, res) => {
-    wallets.push(req.body);
-    console.log(wallets)
-
-    fs.writeFile('wallets.json', JSON.stringify(wallets), function (err) {
-        if (err) return console.log(err);
-        console.log('wallets > wallets.json');
-    });
-
-    return res.send("New wallet was added!");
+    
+    return res.send("The file was uploaded!");
 });
 
 app.listen(port, () =>
