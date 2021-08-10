@@ -29,16 +29,22 @@ app.get('/wallets/random', (req, res) => {
 });
 
 app.get('/wallets', (req, res) => {
-    let walletsArr = [];
-
-    for (let i = 0; i < wallets.length; i++) {
-        walletsArr.push(wallets[i].address);
-    }
-
-    return res.send(walletsArr);
+    return res.send(wallets);
 });
 
 app.post('/wallets/add', (req, res) => {
+    wallets.push(req.body);
+    console.log(wallets)
+
+    fs.writeFile('wallets.json', JSON.stringify(wallets), function (err) {
+        if (err) return console.log(err);
+        console.log('wallets > wallets.json');
+    });
+
+    return res.send("New wallet was added!");
+});
+
+app.post('/wallets/upload', (req, res) => {
     wallets.push(req.body);
     console.log(wallets)
 
