@@ -38,10 +38,24 @@ app.post('/wallets/add', (req, res) => {
 
     fs.writeFile('wallets.json', JSON.stringify(wallets), function (err) {
         if (err) return console.log(err);
-        console.log('wallets > wallets.json');
+        console.log('ADD: wallets > wallets.json');
     });
 
+    console.log('New wallet was added!');
     return res.send("New wallet was added!");
+});
+
+app.delete('/wallets/delete/:address', (req, res) => {
+    const removeIndex = wallets.findIndex(item => item.address === req.address);
+    wallets.splice( removeIndex, 1 );
+
+    fs.writeFile('wallets.json', JSON.stringify(wallets), function (err) {
+        if (err) return console.log(err);
+        console.log('DELETE: wallets > wallets.json');
+    });
+
+    console.log('The wallet was deleted!');
+    return res.send("The wallet was deleted!");
 });
 
 app.post('/wallets/upload', (req, res) => {
@@ -54,11 +68,6 @@ app.post('/wallets/upload', (req, res) => {
     });
 
     return res.send("New wallet was added!");
-});
-
-app.delete('/wallets/delete', (req, res) => {
-    // TODO: Delete wallet from array by address and overwrite the JSON file
-    return res.send("The wallet was deleted!");
 });
 
 app.listen(port, () =>
