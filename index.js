@@ -32,8 +32,9 @@ app.get('/wallets', (req, res) => {
 });
 
 app.post('/wallets/add', (req, res) => {
-    wallets.push(req.body);
-    console.log(wallets)
+    // wallets.push(req.body);
+    // console.log(wallets)
+    console.log(req.body.address);
 
     fs.writeFile('wallets.json', JSON.stringify(wallets), function (err) {
         if (err) return console.log(err);
