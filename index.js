@@ -58,6 +58,7 @@ app.post('/wallets/add', upload.single('wallet-file'), (req, res) => {
 
     console.log('New wallet was added!');
     return res.redirect('https://gangbang-control-panel.herokuapp.com/index.html');
+    // return res.redirect('http://127.0.0.1:5500/index.html');
 });
 
 app.delete('/wallets/delete/:address', (req, res) => {
