@@ -70,7 +70,6 @@ app.post('/wallets/add', upload.single('wallet-file'), (req, res) => {
 
     console.log('New wallet was added!');
     return res.redirect('back');
-    // return res.redirect('http://cri-panel.xyz/index.html');
 });
 
 app.delete('/wallets/delete/:address', (req, res) => {
