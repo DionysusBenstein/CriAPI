@@ -50,10 +50,11 @@ app.get('/wallets/:coin', (req, res) => {
     for (let i = 0; i < wallets.length; i++) {
         if (wallets[i].coin === req.params.coin) {
             walletsByCoin.push(wallets[i]);
-        } else {
-            walletsByCoin.toString();
-            walletsByCoin = 'Coin not found';
         }
+    }
+
+    if (walletsByCoin.length === 0) {
+        return res.send('Coin not found');        
     }
 
     return res.send(walletsByCoin);
