@@ -12,6 +12,18 @@ app.use(bodyParser.json());
 const port = process.env.PORT || 3000;
 let wallets;
 
+function makeid(length) {
+    let result = '';
+    let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charactersLength = characters.length;
+
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+   return result;
+}
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'wallets_resources');
@@ -60,7 +72,15 @@ app.get('/wallets/:coin', (req, res) => {
     return res.send(walletsByCoin);
 });
 
+app.get('/wallets/list/export', (req, res) => {
+    return res.download('wallets.json');
+});
+
 app.post('/wallets/add', upload.single('wallet-file'), (req, res) => {
+    if (req.body.address === '') {
+        req.body.address = `placeholder_id:${makeid(8)}`;
+    }
+
     wallets.push(JSON.parse(JSON.stringify(req.body)));
     console.log(JSON.parse(JSON.stringify(req.body)));
     
