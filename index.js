@@ -1,15 +1,12 @@
 const express = require('express');
 const multer = require('multer');
-const formidable = require('express-formidable');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const fs = require('fs');
-const path = require('path');
 
 const app = express();
 
 app.use(cors());
-// app.use(formidable());
 app.use(bodyParser.json());
 
 const port = process.env.PORT || 3000;
@@ -39,12 +36,27 @@ app.get('/', (req, res) => {
     return res.send("WASSSUUUUUP NIIIGGEEEERR!!!");
 });
 
+app.get('/wallets', (req, res) => {
+    return res.send(wallets);
+});
+
 app.get('/wallets/random', (req, res) => {
     return res.send(wallets[Math.floor(Math.random() * wallets.length)].address);
 });
 
-app.get('/wallets', (req, res) => {
-    return res.send(wallets);
+app.get('/wallets/:coin', (req, res) => {
+    let walletsByCoin = [];
+
+    for (let i = 0; i < wallets.length; i++) {
+        if (wallets[i].coin === req.params.coin) {
+            walletsByCoin.push(wallets[i]);
+        } else {
+            walletsByCoin.toString();
+            walletsByCoin = 'Coin not found';
+        }
+    }
+
+    return res.send(walletsByCoin);
 });
 
 app.post('/wallets/add', upload.single('wallet-file'), (req, res) => {
@@ -57,7 +69,8 @@ app.post('/wallets/add', upload.single('wallet-file'), (req, res) => {
     });
 
     console.log('New wallet was added!');
-    return res.redirect('http://cri-panel.xyz/index.html');
+    return res.redirect('back');
+    // return res.redirect('http://cri-panel.xyz/index.html');
 });
 
 app.delete('/wallets/delete/:address', (req, res) => {
@@ -71,8 +84,8 @@ app.delete('/wallets/delete/:address', (req, res) => {
 
     fs.unlink(`wallets_resources/${req.params.address}`, (err) => {
         if (err) {
-            console.error(err)
-            return
+            console.error(err);
+            return;
         }
     });
 
