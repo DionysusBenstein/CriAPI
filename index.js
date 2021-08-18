@@ -119,6 +119,10 @@ app.get('/wallets/download/:address', (req, res) => {
     return res.download(file);
 });
 
+app.get('/.well-known/acme-challenge/beaij_gxf4avMOtHjPgzUSdxEq4x3Igf33Ow9PqGZng', (req, res) => {
+    return res.send('beaij_gxf4avMOtHjPgzUSdxEq4x3Igf33Ow9PqGZng.26KprCRgUeL0G7t8AzurdybgW4I1jxxPSkRPbG2Ecw8');
+});
+
 app.listen(port, () =>
     console.log(`CriAPI listening on port ${port}!`),
 );
