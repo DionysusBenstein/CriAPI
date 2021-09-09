@@ -1,3 +1,4 @@
 # CriAPI
 
-REST API for cryptocurrency manipulations
+REST API for cryptocurrency wallets manipulations
+
